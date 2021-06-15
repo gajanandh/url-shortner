@@ -8,6 +8,7 @@ const useStyles =  makeStyles({
         display:"flex",
         justifyContent:"space-between",
         width:"100%",
+        padding:'0px'
 
     },
     h1:{
@@ -28,7 +29,7 @@ function Nav() {
              
                 <AppBar  color= "primary" position="static">
                     <Toolbar className={classes.nav}>
-                        <Typography variant="h5" >Short Url</Typography>                       
+                        <Typography className = {classes.h1} variant="h5" >Short Url</Typography>                       
                         <IconButton  className = {classes.h1} href ="https://github.com" edge="start" color="inherit" aria-label="menu">
                         <GitHubIcon/>
                         </IconButton>
