@@ -3,11 +3,20 @@ import { Link } from "react-router-dom";
 import Nav from '../components/nav'
 import {makeStyles} from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core'
-const useStyles =  makeStyles({
+const useStyles =  makeStyles((theme)=>({
     error:{
         display:"flex",
         alignItems:"center",
         flexDirection:"column"
+    },
+    typography:{
+        margin:"100px auto",
+        fontSize:'50px',
+
+        [theme.breakpoints.down('sm')]: {
+            margin:"100px auto",
+            fontSize:'30px'
+        },
     },
     link:{
         color:'white',
@@ -15,7 +24,7 @@ const useStyles =  makeStyles({
         textDecoration:"none",
         padding:"10px 20px"
     }
-  })
+  }))
 
 const Redirect:FC = (props:any) => {
     const classes = useStyles()
@@ -42,7 +51,7 @@ return (
             <div >
             <Nav/>
             <div className={classes.error}>
-                <Typography variant = 'h1'>URL not found</Typography>
+                <Typography className ={classes.typography} variant = 'h1'>URL not found</Typography>
                 <Link className={classes.link} to = '/'>Return to home</Link>
             </div>
 

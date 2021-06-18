@@ -3,11 +3,10 @@ import {TextField,Button} from '@material-ui/core';
 import instance from '../api/api'
 import {makeStyles} from '@material-ui/core/styles';
 
-const useStyles =  makeStyles({
+const useStyles =  makeStyles((theme)=>({
 
     button:{
-      width: "20%", 
-      margin: "10px"
+      margin: theme.spacing(1)
     },
     inputelement:{
       width:"50%",
@@ -19,22 +18,21 @@ const useStyles =  makeStyles({
       flexDirection:"column",
       marginTop:"10vh"
     }
-  })
+  }))
 
 
 export default function Form (props:any) {
     const classes = useStyles()
+    
     const [url,setUrl] = useState<string>("");
     
-    console.log(props)
     const handleSubmit= (e: FormEvent<HTMLFormElement>):void =>{
-        console.log(url)
         e.preventDefault()
         instance.post('/',{full:url})
         .then(res=>{
           props.setshorturlfunc('http://localhost:3000/'+res.data.short)
           setUrl("")
-          console.log(res)
+          props.seterrfunc("")
         })
         .catch(err=>{console.log(err)
         props.seterrfunc("please try again")})
@@ -62,7 +60,7 @@ export default function Form (props:any) {
             <Button
             className={classes.button}
               type = "submit"
-              size="small"
+              size="large"
               variant = "contained"
               color = "primary"
             >

@@ -3,17 +3,15 @@ import {makeStyles} from '@material-ui/core/styles';
 import React ,{useState,FC}from 'react';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {Button,Link,Typography,Paper} from '@material-ui/core';
-
 import Tooltip from "@material-ui/core/Tooltip";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
 
 import Nav from '../components/nav'
 import Form from '../components/form'
 
-const useStyles =  makeStyles({
+const useStyles =  makeStyles((theme)=>({
 
-    shorturl:{
-      
+  shorturl:{
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -35,17 +33,26 @@ const useStyles =  makeStyles({
     color:'red'
   },
   paper:{
-    background:"rgb(200, 212, 212)",
+    background:theme.palette.background.paper,
     display:"flex",
     flexWrap:"wrap",
     justifyContent:"center",
     flexDirection:"row",
     padding:"20px"
+  },
+  link:{
+    color:theme.palette.type==="dark"?'#fff':'#000'
+  },
+  qrcode:{
+    background:'#fff',
+    padding:"10px"
+
   }
     
-  })
+  }))
 
 const Home:FC = () => {
+
   const [shorturl,setShorturl] = useState<string>('')
   const [err,setErr] = useState<string|null>()
   const [copied,setCopied] = useState<boolean>()
@@ -69,7 +76,7 @@ const Home:FC = () => {
           <div className={classes.shorturl} id="shorturl">
             <div className={classes.shorturllink}>
               <Paper className= {classes.paper} elevation={5}  variant="elevation">
-                <div><Link href={shorturl}>{shorturl}</Link></div>
+                <div><Link className={classes.link} href={shorturl}>{shorturl}</Link></div>
                 <Tooltip title={copied?"url copied!!":"click to copy"} leaveDelay={1000}>
   
                 <div className = {classes.copytoclipboard}>
@@ -80,7 +87,8 @@ const Home:FC = () => {
               </Tooltip>
               </Paper>              
             </div>
-            <QRcode value={shorturl} />
+            <Paper className={classes.qrcode}><QRcode value={shorturl} /></Paper>
+            
             
           </div>
           :null}
